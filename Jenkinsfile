@@ -6,7 +6,7 @@ pipeline {
           tools {
                     maven 'Maven'
           }
-          parameters{
+          parameters {
                     choice(name:'VERSION', choices: ['1.1.0', '1.2.0', '1.3.0'], description:'')
                     booleanParam(name:'executeTests', defaultValue: true, description:'')
           }
@@ -17,8 +17,8 @@ pipeline {
           stages {
     
                     stage('init') {
-                              steps{
-                                        scripts{
+                              steps {
+                                        script {
                                                   gv = load "script.groovy"          
                                         }
                               }
@@ -26,7 +26,7 @@ pipeline {
 
                     stage("build") {
                               steps {
-                                        scripts{
+                                        script{
                                                   gv.buildApp()
                                         }
 
@@ -42,7 +42,7 @@ pipeline {
                                         }
                               }
                               steps {
-                                        scripts{
+                                        script {
                                                   gv.testApp()    
                                         }
                               }
@@ -50,8 +50,8 @@ pipeline {
 
                     stage("deploy") {
                               steps {
-                                        steps{
-                                                  scripts{
+                                        steps {
+                                                  script {
                                                             gv.deployApp() 
                                                   }
                                         }
