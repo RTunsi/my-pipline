@@ -10,7 +10,7 @@ pipeline {
   }
   environment {
     NEW_VERSION = '1.2.0'
-    SERVER_CREDENTIALS = credentails('')
+    //SERVER_CREDENTIALS = credentails('')
   }
   stages {
 
@@ -19,14 +19,14 @@ pipeline {
       steps {
         echo 'building the application..'
         echo "building version ${NEW_VERSION}"
-        sh "mvn install"
+        //sh "mvn install"
       }
     }
 
     stage("test") {
       when {
         expression {
-          BRANCH_NAME == 'dev' || BRANCH_NAME == 'main'
+          //BRANCH_NAME == 'dev' || BRANCH_NAME == 'main'
           params.executeTests
         }
       }
