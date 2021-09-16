@@ -1,3 +1,5 @@
+def gv
+          
 pipeline {
   
   agent any
@@ -13,12 +15,22 @@ pipeline {
     //SERVER_CREDENTIALS = credentails('')
   }
   stages {
+    
+    stage('init') {
+      steps{
+        scripts{
+          gv = load "script.groovy"
+          
+        }
+      }
+    }
 
     stage("build") {
-
       steps {
-        echo 'building the application..'
-        echo "building version ${NEW_VERSION}"
+        scripts{
+          gv.buildApp()
+        }
+
         //sh "mvn install"
       }
     }
@@ -31,15 +43,15 @@ pipeline {
         }
       }
       steps {
-        echo 'testing the application..'
+        gv.testApp()        
       }
     }
 
     stage("deploy") {
-
       steps {
-        echo 'deploying the application..'
-        echo "deploying version ${params.VERSION}"
+        steps{
+          gv.deployApp() 
+        }
       }
     }
   }             
